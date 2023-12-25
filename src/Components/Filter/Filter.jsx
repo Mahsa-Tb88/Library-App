@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./filter.scss";
-export default function Filter({ search, setSearch, status }) {
+export default function Filter({ search, searchHandler, status, totalBooks }) {
   let message = "";
   if (status == "searching") {
-    message = "Show result after ending type";
+    message = "Show result after ending type...";
   } else if (status == "result") {
-    message = `${status} have founded`;
+    if (totalBooks == 0) {
+      message = `No Result`;
+    } else {
+      message = `${totalBooks} item(s) have founded`;
+    }
   } else {
     message = "Enter Text to Search";
   }
@@ -51,7 +55,7 @@ export default function Filter({ search, setSearch, status }) {
           type="text"
           className="my-4 search rounded-1"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => searchHandler(e.target.value)}
         />
       </div>
       <div className="message text-white py-2   px-2 rounded-1 ">
